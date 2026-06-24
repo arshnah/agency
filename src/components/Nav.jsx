@@ -19,8 +19,8 @@ export default function Nav() {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-bg/80 backdrop-blur-md py-3' : 'py-5'}`}>
-      <div className="flex items-center justify-between px-6 md:px-14">
-        <a href="#" className="font-display text-2xl tracking-wide text-acid">`n          KOHAKU`n        </a>
+      <div className="flex items-center justify-between px-5 md:px-14">
+        <a href="#" className="font-display text-2xl md:text-3xl tracking-wide text-acid">KOHAKU</a>
 
         <div className="hidden md:flex items-center gap-9">
           {links.map(([label, href]) => (
@@ -30,24 +30,20 @@ export default function Nav() {
           ))}
         </div>
 
-        <button onClick={() => setOpen(!open)} className="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
+        <button onClick={() => setOpen(!open)} className="md:hidden flex flex-col gap-1.5 p-2 z-50" aria-label="Menu">
           <span className={`w-6 h-px bg-ink transition-all ${open ? 'rotate-45 translate-y-2' : ''}`} />
           <span className={`w-6 h-px bg-ink transition-all ${open ? 'opacity-0' : ''}`} />
           <span className={`w-6 h-px bg-ink transition-all ${open ? '-rotate-45 -translate-y-2' : ''}`} />
         </button>
       </div>
 
-      {/* Mobile menu */}
-      <div className={`md:hidden overflow-hidden transition-all duration-300 ${open ? 'max-h-80' : 'max-h-0'}`}>
-        <div className="flex flex-col gap-4 px-6 py-6">
-          {links.map(([label, href]) => (
-            <a key={href} href={href} onClick={() => setOpen(false)} className="font-display text-2xl text-ink hover:text-acid transition-colors">
-              {label}
-            </a>
-          ))}
-        </div>
+      <div className={`md:hidden fixed inset-0 bg-bg/98 backdrop-blur-xl flex flex-col items-center justify-center gap-7 transition-all duration-300 ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+        {links.map(([label, href]) => (
+          <a key={href} href={href} onClick={() => setOpen(false)} className="font-display text-4xl text-ink hover:text-acid transition-colors tracking-wide">
+            {label}
+          </a>
+        ))}
       </div>
     </nav>
   )
 }
-
