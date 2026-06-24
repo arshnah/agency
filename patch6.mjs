@@ -1,4 +1,11 @@
-import { useRef, useEffect } from 'react'
+// ════════════════════════════════════════════════
+//  KOHAKU — Option B: Work section -> clean "Coming soon"
+//  Run: node patch6.mjs  (run AFTER patch5)
+// ════════════════════════════════════════════════
+import { readFileSync, writeFileSync } from 'fs'
+
+// 1. Replace WorkCards component body with a clean placeholder section
+writeFileSync('src/components/WorkCards.jsx', `import { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -33,7 +40,7 @@ export default function WorkCards() {
         </h2>
 
         <p className="cw-rev font-body text-base md:text-lg text-ink/50 max-w-md mx-auto mb-10">
-          We just opened our doors. The first manga campaigns and brand films are being made right now. This is where they’ll live.
+          We just opened our doors. The first manga campaigns and brand films are being made right now. This is where they\u2019ll live.
         </p>
 
         <div className="cw-rev inline-flex items-center gap-3 border border-acid/25 rounded-full px-6 py-3">
@@ -49,3 +56,7 @@ export default function WorkCards() {
     </section>
   )
 }
+`)
+console.log('OK src/components/WorkCards.jsx -- replaced with Coming Soon')
+
+console.log('\\nDone. Ab chalao: npm run dev')

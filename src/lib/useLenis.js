@@ -14,14 +14,21 @@ export function useLenis() {
     })
 
     lenis.on('scroll', ScrollTrigger.update)
-
-    const raf = (time) => {
-      lenis.raf(time * 1000)
-    }
+    const raf = (time) => lenis.raf(time * 1000)
     gsap.ticker.add(raf)
     gsap.ticker.lagSmoothing(0)
 
+    // Recalculate trigger positions once everything (3D canvas, fonts) settles.
+    // Without this, reveal animations stay stuck at opacity:0 = dark sections.
+    const refresh = () => ScrollTrigger.refresh()
+    const t1 = setTimeout(refresh, 300)
+    const t2 = setTimeout(refresh, 1200)
+    window.addEventListener('load', refresh)
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(refresh)
+
     return () => {
+      clearTimeout(t1); clearTimeout(t2)
+      window.removeEventListener('load', refresh)
       gsap.ticker.remove(raf)
       lenis.destroy()
     }

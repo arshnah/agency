@@ -55,11 +55,11 @@ export default function Services() {
   const gridRef = useRef(null)
   useEffect(() => {
     const cards = gridRef.current?.querySelectorAll('.svc-card')
-    if (cards) gsap.from(cards, { scrollTrigger: { trigger: gridRef.current, start: 'top 80%' }, y: 40, opacity: 0, stagger: 0.07, duration: 0.7, ease: 'power3.out' })
+    if (cards) gsap.from(cards, { scrollTrigger: { trigger: gridRef.current, start: 'top 92%', toggleActions: 'play none none none', once: true }, y: 40, opacity: 0, stagger: 0.07, duration: 0.7, ease: 'power3.out' })
   }, [])
 
   return (
-    <section id="services" className="relative py-24 md:py-32 px-6 md:px-14 bg-black overflow-hidden">
+    <section id="services" className="relative py-24 md:py-32 px-6 md:px-14 bg-[#04140D] overflow-hidden">
       <MotionGfxBg />
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="mb-16 text-center">
@@ -71,14 +71,14 @@ export default function Services() {
           {SERVICES.map((s) => (
             <div key={s.n} className="svc-card relative p-8 rounded-2xl overflow-hidden group"
               style={{
-                background: 'linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 50%, rgba(180,220,200,0.02) 100%)',
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.07) 50%, rgba(0,224,138,0.05) 100%)',
                 backdropFilter: 'blur(20px) saturate(180%)',
                 WebkitBackdropFilter: 'blur(20px) saturate(180%)',
                 boxShadow: 'inset 0 1.5px 0 rgba(255,255,255,0.5), inset 1.5px 0 0 rgba(255,255,255,0.25), 0 0 0 1px rgba(255,255,255,0.1), 0 30px 60px rgba(0,0,0,0.4)',
               }}>
               <div className="font-mono text-[10px] text-acid mb-4">{s.n}</div>
               <h3 className="font-body font-bold text-xl text-white mb-3">{s.t}</h3>
-              <p className="font-body text-sm text-white/55 leading-relaxed">{s.d}</p>
+              <p className="font-body text-sm text-white/75 leading-relaxed">{s.d}</p>
             </div>
           ))}
         </div>

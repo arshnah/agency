@@ -2,13 +2,13 @@ import { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-const STATS = [['40x', 'More shares'], ['94%', 'Recall rate'], ['48h', 'First draft'], ['₹12K', 'Starting/mo']]
+const STATS = [['48h', 'First draft'], ['4', 'Formats'], ['₹8K', 'First piece'], ['0', 'Templates used']]
 
 export default function About() {
   const ref = useRef(null)
   useEffect(() => {
     const items = ref.current?.querySelectorAll('.stat-item')
-    if (items) gsap.from(items, { scrollTrigger: { trigger: ref.current, start: 'top 82%' }, y: 30, opacity: 0, stagger: 0.1, duration: 0.7, ease: 'power3.out' })
+    if (items) gsap.from(items, { scrollTrigger: { trigger: ref.current, start: 'top 92%', toggleActions: 'play none none none', once: true }, y: 30, opacity: 0, stagger: 0.1, duration: 0.7, ease: 'power3.out' })
   }, [])
 
   return (
