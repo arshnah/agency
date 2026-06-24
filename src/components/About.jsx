@@ -18,10 +18,10 @@ export default function About() {
           <span className="w-8 h-px bg-acid inline-block" /> Who We Are
         </p>
         <h2 className="font-display text-4xl md:text-6xl leading-[1.05] mb-8">
-          A creative agency that makes content people <span className="text-acid">actually remember.</span>
+          We make ads people <span className="text-acid">screenshot, not skip.</span>
         </h2>
         <p className="font-body text-lg text-ink/55 max-w-2xl mb-16">
-          We use the most powerful creative tools available — directed with genuine intent. The result is work that stands out because it was designed to, not optimised for volume.
+          Most agencies chase volume and the work starts to blur together. We go the other way. Every piece gets real creative direction, so it lands like a story someone wants to send to a friend. Manga panels, short films, webcomics, UGC, whatever the brand actually needs.
         </p>
 
         <div ref={ref} className="grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-ink/10 pt-12">

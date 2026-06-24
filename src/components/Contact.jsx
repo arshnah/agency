@@ -29,7 +29,7 @@ export default function Contact() {
           Let's make<br /><span className="text-acid">something real.</span>
         </h2>
         <p className="font-body text-lg text-ink/55 mb-12 max-w-md">
-          Tell us what you're building. We'll tell you how to make it impossible to ignore.
+          Tell us what you're building. We'll show you how to make people stop scrolling.
         </p>
 
         {sent ? (

@@ -3,12 +3,12 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const SERVICES = [
-  { n: '01', t: 'Manga Brand Campaigns', d: '4–12 panel manga series. The format people screenshot and share. 40x more shares than standard ads.' },
-  { n: '02', t: 'Cinematic Brand Films', d: '2–5 min short films with real narrative arcs. Cinematic quality at a fraction of production cost.' },
-  { n: '03', t: 'Webcomic Ad Series', d: 'Episodic content with recurring characters. Builds community, not just impressions.' },
-  { n: '04', t: 'UGC That Converts', d: 'Platform-native content with real creative direction. Built for Reels, Shorts, TikTok.' },
-  { n: '05', t: 'Launch Packages', d: 'Pre-launch teaser + launch-day hero + post-launch series. An event, not an announcement.' },
-  { n: '06', t: 'Monthly Retainers', d: 'Consistent creative direction every month. Same visual language, same narrative voice.' },
+  { n: '01', t: 'Manga Brand Campaigns', d: 'Four to twelve panel stories with your product woven in. People screenshot these and send them around. We’ve seen them pull far more shares than a normal ad.' },
+  { n: '02', t: 'Cinematic Brand Films', d: 'Two to five minute films with an actual story, not a product demo. Cinematic quality without the cinematic budget.' },
+  { n: '03', t: 'Webcomic Ad Series', d: 'Episodic stuff with characters people come back for. Builds a following, not just a view count.' },
+  { n: '04', t: 'UGC That Converts', d: 'Platform-native content that still has real direction behind it. Made for Reels, Shorts, and TikTok, not churned out by a farm.' },
+  { n: '05', t: 'Launch Packages', d: 'Teaser, launch day, then a follow-up series. Makes a launch feel like an event instead of a single post.' },
+  { n: '06', t: 'Monthly Retainers', d: 'Same creative direction every month. Your whole feed starts to look like it belongs together.' },
 ]
 
 // Generic motion graphics canvas (the ironic "what others deliver" bg)
@@ -64,7 +64,7 @@ export default function Services() {
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="mb-16 text-center">
           <p className="font-mono text-[11px] tracking-[0.3em] text-acid uppercase mb-4">What We Make</p>
-          <h2 className="font-display text-5xl md:text-7xl">Six formats.<br /><span className="text-acid">All unforgettable.</span></h2>
+          <h2 className="font-display text-5xl md:text-7xl">Six things<br /><span className="text-acid">we’re good at.</span></h2>
         </div>
 
         <div ref={gridRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
