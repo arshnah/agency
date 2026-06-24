@@ -11,7 +11,7 @@ export default {
         moss: '#1A2E22',
       },
       fontFamily: {
-        display: ['"Anton"', 'sans-serif'],
+        display: ['"Bebas Neue"', 'sans-serif'],
         body: ['"Syne"', 'sans-serif'],
         mono: ['"Space Mono"', 'monospace'],
       },
