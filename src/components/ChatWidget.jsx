@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
-import { getOrCreateConversation, fetchMessages, sendMessage, subscribeMessages } from '../lib/supabase'
+import { getOrCreateConversation, fetchMessages, sendMessage, subscribeMessages, setConversationEmail } from '../lib/supabase'
+
+const EMAIL_KEY = 'agency_email_given'
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false)
@@ -7,6 +9,12 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [booting, setBooting] = useState(false)
+
+  // email capture state
+  const [askEmail, setAskEmail] = useState(false)       // show the email prompt row
+  const [emailGiven, setEmailGiven] = useState(false)   // already captured (this browser)
+  const [emailInput, setEmailInput] = useState('')
+  const [emailErr, setEmailErr] = useState('')
   const endRef = useRef(null)
 
   // Boot conversation when first opened
@@ -23,6 +31,11 @@ export default function ChatWidget() {
       .catch((e) => { console.error(e); setBooting(false) })
   }, [open, convId])
 
+  // restore "email already given" flag for returning visitors
+  useEffect(() => {
+    if (localStorage.getItem(EMAIL_KEY)) setEmailGiven(true)
+  }, [])
+
   // Realtime subscription
   useEffect(() => {
     if (!convId) return
@@ -33,17 +46,40 @@ export default function ChatWidget() {
   }, [convId])
 
   // Auto-scroll
-  useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [messages, open])
+  useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [messages, open, askEmail])
 
   const send = async () => {
     const body = input.trim()
     if (!body || !convId) return
     setInput('')
-    // optimistic
     const temp = { id: 'temp-' + Date.now(), conversation_id: convId, sender: 'visitor', body, created_at: new Date().toISOString() }
+    const isFirst = messages.filter((m) => m.sender === 'visitor').length === 0
     setMessages((prev) => [...prev, temp])
     try { await sendMessage(convId, body, 'visitor') }
     catch (e) { console.error(e) }
+    // After the very first visitor message, ask for email (once)
+    if (isFirst && !emailGiven) {
+      setTimeout(() => setAskEmail(true), 600)
+    }
+  }
+
+  const submitEmail = async () => {
+    const email = emailInput.trim()
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setEmailErr('Enter a valid email'); return }
+    setEmailErr('')
+    try {
+      await setConversationEmail(convId, email)
+      localStorage.setItem(EMAIL_KEY, '1')
+      setEmailGiven(true)
+      setAskEmail(false)
+      // confirmation message from "agency" side (local only, not stored)
+      setMessages((prev) => [...prev, {
+        id: 'sys-' + Date.now(), conversation_id: convId, sender: 'agency',
+        body: 'Got it. We will reply right here, and over email too. 👍', created_at: new Date().toISOString(),
+      }])
+    } catch (e) {
+      console.error(e); setEmailErr('Something went wrong, try again')
+    }
   }
 
   return (
@@ -68,7 +104,7 @@ export default function ChatWidget() {
           <div className="px-5 py-4 border-b border-ink/10 bg-[#0E1311]">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-acid animate-pulse" />
-              <span className="font-display text-lg">KOHAKU</span>
+              <span className="font-display text-lg text-acid">KOHAKU</span>
             </div>
             <p className="font-mono text-[9px] tracking-wider text-ink/40 uppercase mt-1">Usually replies within an hour</p>
           </div>
@@ -89,6 +125,28 @@ export default function ChatWidget() {
                 </div>
               </div>
             ))}
+
+            {/* Email prompt (after first message) */}
+            {askEmail && !emailGiven && (
+              <div className="bg-ink/5 border border-acid/20 rounded-xl p-3.5 mt-1">
+                <p className="font-body text-sm text-ink/80">Drop your email so we can reply here and follow up if you leave.</p>
+                <div className="flex gap-2 mt-2.5">
+                  <input
+                    type="email"
+                    value={emailInput}
+                    onChange={(e) => { setEmailInput(e.target.value); setEmailErr('') }}
+                    onKeyDown={(e) => e.key === 'Enter' && submitEmail()}
+                    placeholder="you@email.com"
+                    className="flex-1 bg-bg border border-ink/15 rounded-lg px-3 py-2 font-body text-sm text-ink placeholder:text-ink/30 focus:border-acid/50 focus:outline-none"
+                    autoFocus
+                  />
+                  <button onClick={submitEmail} className="px-3.5 py-2 rounded-lg bg-acid text-bg font-mono text-[11px] uppercase tracking-wide hover:bg-ink transition-colors shrink-0">Send</button>
+                </div>
+                {emailErr && <p className="font-mono text-[10px] text-red-400 mt-1.5">{emailErr}</p>}
+                <button onClick={() => setAskEmail(false)} className="font-mono text-[10px] text-ink/30 hover:text-ink/50 mt-2 transition-colors">later</button>
+              </div>
+            )}
+
             <div ref={endRef} />
           </div>
 
@@ -110,4 +168,3 @@ export default function ChatWidget() {
     </>
   )
 }
-
