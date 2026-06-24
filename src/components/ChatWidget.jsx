@@ -40,7 +40,13 @@ export default function ChatWidget() {
   useEffect(() => {
     if (!convId) return
     const unsub = subscribeMessages(convId, (m) => {
-      setMessages((prev) => prev.some((x) => x.id === m.id) ? prev : [...prev, m])
+      setMessages((prev) => {
+        if (prev.some((x) => x.id === m.id)) return prev
+        // replace optimistic temp (same sender+body) with the real row
+        const ti = prev.findIndex((x) => String(x.id).startsWith('temp-') && x.sender === m.sender && x.body === m.body)
+        if (ti !== -1) { const copy = prev.slice(); copy[ti] = m; return copy }
+        return [...prev, m]
+      })
     })
     return unsub
   }, [convId])
