@@ -71,7 +71,7 @@ export default function DiffSlider() {
                 </div>
               ))}
             </div>
-            <p className="font-body text-sm text-[#1A2D24]/60 mt-5 italic">"Not a template. A story."</p>
+            <p className="font-body text-sm text-[#1A2D24]/60 mt-5 italic">"People actually shared this one."</p>
           </div>
         </div>
 

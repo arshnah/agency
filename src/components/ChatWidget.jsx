@@ -78,8 +78,8 @@ export default function ChatWidget() {
             {booting && <p className="font-mono text-xs text-ink/30 text-center">Connecting…</p>}
             {!booting && messages.length === 0 && (
               <div className="text-center py-8">
-                <p className="font-body text-ink/50 text-sm">👋 Hey! Tell us about your project.</p>
-                <p className="font-mono text-[10px] text-ink/30 mt-2">We make content people remember.</p>
+                <p className="font-body text-ink/50 text-sm">👋 Hey. What are you working on?</p>
+                <p className="font-mono text-[10px] text-ink/30 mt-2">No bots here, a real person reads these.</p>
               </div>
             )}
             {messages.map((m) => (

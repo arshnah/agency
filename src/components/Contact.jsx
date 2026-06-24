@@ -26,7 +26,7 @@ export default function Contact() {
     <section id="contact" className="relative py-24 md:py-32 px-6 md:px-14 bg-[#070A09]">
       <div className="max-w-4xl mx-auto">
         <h2 className="font-display text-5xl md:text-8xl leading-[0.95] mb-8">
-          Let's make<br /><span className="text-acid">something real.</span>
+          Got something<br /><span className="text-acid">worth making?</span>
         </h2>
         <p className="font-body text-lg text-ink/55 mb-12 max-w-md">
           Tell us what you're building. We'll show you how to make people stop scrolling.
