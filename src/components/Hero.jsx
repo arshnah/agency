@@ -13,9 +13,10 @@ export default function Hero() {
     if (!cv) return
     let raf
     let renderer
+    let started = false
 
-    const W = () => cv.offsetWidth
-    const H = () => cv.offsetHeight
+    const W = () => cv.offsetWidth || window.innerWidth
+    const H = () => cv.offsetHeight || window.innerHeight
 
     function makeNM(sz) {
       const cv2 = document.createElement('canvas'); cv2.width = cv2.height = sz
@@ -41,7 +42,7 @@ export default function Hero() {
     function draw2D() {
       const ctx = cv.getContext('2d'); if (!ctx) return
       const loop = () => {
-        const w = cv.width = cv.offsetWidth, h = cv.height = cv.offsetHeight
+        const w = cv.width = (cv.offsetWidth || window.innerWidth), h = cv.height = (cv.offsetHeight || window.innerHeight)
         const mob = w < 768
         ctx.clearRect(0, 0, w, h)
         const t = performance.now() / 1000
@@ -124,6 +125,8 @@ export default function Hero() {
       layoutH = 4.4 + SIZE * 1.1
       scene.add(group)
       requestAnimationFrame(fit)
+      setTimeout(fit, 300)
+      setTimeout(fit, 800)
     }
 
     function fit() {
